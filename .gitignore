@@ -2,6 +2,9 @@
 app/public/wp-config.php
 app/public/.htaccess
 
+# カスタムテーマ（既存のGitリポジトリの場合）
+app/public/wp-content/themes/ichizo-hamonohonpo/
+
 # ログファイル
 logs/
 *.log

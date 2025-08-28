@@ -1,0 +1,2 @@
+# ichizo-hamonohonpo
+市蔵刃物本舗の公式WordPressテーマ。和の美意識と引き算の美学を表現する静かなブランドサイト。

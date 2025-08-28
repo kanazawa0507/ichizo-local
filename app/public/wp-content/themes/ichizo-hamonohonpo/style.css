@@ -1,0 +1,340 @@
+/*
+Theme Name: ichizo-hamonohonpo
+Theme URI: https://example.com/
+Author: 市蔵刃物本舗
+Author URI: https://example.com/
+Description: 市蔵刃物本舗公式オリジナルテーマ。日本の伝統と職人技を伝えるためのWordPressテーマ。
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ichizo-hamonohonpo
+Tags: custom-theme, minimal, tailwindcss, acf, japanese, craftsman
+*/ 
+
+/* カスタムスタイル */
+@layer components {
+  .btn-primary {
+    @apply bg-wood hover:bg-iron text-ink font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-200 hover:bg-secondary-300 text-secondary-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* ヒーロー画像セクション */
+  .hero-section {
+    background: linear-gradient(135deg, #2A2A2A 0%, #6e6e6e 100%);
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+  }
+  
+  .hero-section .absolute {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* スマホ表示での最適化 */
+  @media (max-width: 767px) {
+    .hero-section {
+      height: 100vh;
+    }
+    
+    .hero-section .absolute {
+      background-size: cover;
+      background-position: center center;
+    }
+    
+    /* スマホ用のテキストサイズ調整 */
+    .hero-section h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero-section p {
+      font-size: 1.125rem;
+    }
+  }
+  
+  /* PC表示での最適化 */
+  @media (min-width: 768px) {
+    .hero-section {
+      height: 100vh;
+    }
+    
+    .hero-section .absolute {
+      background-size: cover;
+      background-position: center top;
+    }
+  }
+  
+  /* 縦書きテキスト */
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Antique', serif;
+    max-height: 400px;
+    overflow: visible;
+    letter-spacing: 0.1em;
+  }
+  
+  .writing-mode-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.1em;
+  }
+  
+  /* 縦書きテキストの統一スタイル */
+  .vertical-text-unified {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Antique', serif;
+    letter-spacing: 0.1em;
+    line-height: 2.2;
+    white-space: nowrap;
+  }
+  
+  /* レスポンシブ縦書きテキスト */
+  .vertical-responsive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    padding: 2rem 1rem;
+  }
+
+  /* 製品カード */
+  .product-card .product-title {
+    line-height: 1.5;
+  }
+  .product-card .product-price {
+    color: #d9c9a3; /* wood */
+    font-weight: 600;
+  }
+  .product-image-wrapper img { 
+    transition: transform .3s ease;
+  }
+
+  /* note カード */
+  .note-card h3 { line-height: 1.4; }
+  .note-card img { transition: transform .3s ease; }
+
+  /* カード共通 */
+  .card { box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 10px 30px rgba(0,0,0,0.25); }
+  .card-title { letter-spacing: .02em; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(217,201,163,.35), transparent); margin: 0 auto 2rem; }
+  /* 背景ドットは不要のため無効化 */
+  .bg-texture { background-image: none; background-size: auto; }
+
+  /* モバイルナビ（開閉） */
+  #primary-menu[aria-expanded="true"],
+  .menu-open #primary-menu { display:block; }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* 背景画像のフォールバック */
+  .hero-fallback-bg {
+    background: linear-gradient(135deg, #2A2A2A 0%, #6e6e6e 100%);
+  }
+} 
+
+/* ===== Global layout refinements (non-Tailwind fallback) ===== */
+/* コンパイラが無い環境でも左右マージン/パディングが効くように生CSSで定義 */
+.container-custom {
+  max-width: 1280px; /* ~max-w-7xl 相当 */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 5vw, 32px);
+  padding-right: clamp(20px, 5vw, 32px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* モバイル専用の追加スタイル */
+@media (max-width: 767px) {
+  .container-custom {
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
+  }
+  
+  /* モバイル用縦書きテキストの最適化 */
+  .vertical-text-mobile {
+    writing-mode: vertical-rl !important;
+    text-orientation: mixed !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.5 !important;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem) !important;
+    height: clamp(320px, 65vh, 420px) !important;
+    width: auto !important;
+    overflow: visible !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  /* 極小サイズ（425px以下）での調整 */
+  @media (max-width: 425px) {
+    .vertical-text-mobile {
+      font-size: clamp(1rem, 3vw, 1.2rem) !important;
+      height: clamp(300px, 60vh, 380px) !important;
+      letter-spacing: 0.04em !important;
+      line-height: 1.4 !important;
+    }
+  }
+  
+  /* モバイル用のタイポグラフィ調整 */
+  .section-title-mobile {
+    font-size: 1.875rem !important; /* 30px */
+    line-height: 1.3 !important;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .section-subtitle-mobile {
+    font-size: 1rem !important; /* 16px */
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* モバイル用のカード調整 */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* モバイル用のヒーロー調整 */
+  .hero-section {
+    height: 70vh !important;
+    min-height: 500px;
+  }
+  
+  /* モバイルでのセクション間の余白を調整 */
+  .mobile-section-py {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+
+/* カードの洗練（角丸と微妙な影） */
+.card {
+  border-radius: 8px;
+}
+.product-image-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* セクション間の余白を最適化 */
+.products-section { padding-top: 4rem; padding-bottom: 4rem; }
+@media (min-width: 768px) {
+  .products-section { padding-top: 5rem; padding-bottom: 5rem; }
+}
+
+/* ===== お問い合わせページ専用スタイル ===== */
+.contact-hero-section {
+  background: linear-gradient(135deg, #2A2A2A 0%, #6e6e6e 100%);
+  position: relative;
+}
+
+.contact-hero-section .absolute {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* お問い合わせフォームスタイル */
+.contact-form-wrapper .form-group input,
+.contact-form-wrapper .form-group select,
+.contact-form-wrapper .form-group textarea {
+  transition: all 0.3s ease;
+  background-color: rgba(26, 26, 26, 0.8);
+}
+
+.contact-form-wrapper .form-group input:focus,
+.contact-form-wrapper .form-group select:focus,
+.contact-form-wrapper .form-group textarea:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 201, 163, 0.1);
+}
+
+/* フォームボタンのアニメーション */
+.contact-form-wrapper .btn-primary {
+  background: linear-gradient(135deg, #d9c9a3 0%, #c4b388 100%);
+  box-shadow: 0 4px 15px rgba(217, 201, 163, 0.3);
+  transition: all 0.3s ease;
+}
+
+.contact-form-wrapper .btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(217, 201, 163, 0.4);
+  transform: translateY(-2px);
+}
+
+.contact-form-wrapper .btn-primary:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* 店舗情報カードのスタイル */
+.contact-info-wrapper .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info-wrapper .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 767px) {
+  .contact-hero-section {
+    height: 60vh !important;
+    min-height: 400px;
+  }
+  
+  .contact-hero-section h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  .contact-hero-section p {
+    font-size: 1rem !important;
+  }
+  
+  .contact-form-section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  .contact-form-wrapper .card,
+  .contact-info-wrapper .card {
+    padding: 1.5rem !important;
+  }
+}
+
+/* フォーム送信成功・エラーメッセージ */
+.form-message-success {
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: rgba(34, 197, 94, 0.9);
+}
+
+.form-message-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgba(239, 68, 68, 0.9);
+}
